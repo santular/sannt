@@ -36,3 +36,4 @@ body.rage{--ink:#e8e6df;--paper:#090909;--muted:#8d8b85;--line:rgba(235,232,222,
 @keyframes free-dot{0%{transform:translate(-290%,-210%) scale(.72)}28%{transform:translate(150%,-270%) scale(1)}61%{transform:translate(270%,90%) scale(.8)}100%{transform:translate(-210%,240%) scale(1.08)}}
 @media(max-width:640px){@keyframes free-dot{0%{transform:translate(-190%,-180%) scale(.7)}50%{transform:translate(130%,-220%) scale(1)}100%{transform:translate(-150%,190%) scale(.85)}}}
 @media(prefers-reduced-motion:reduce){.eye::after{animation:none;transform:translate(150%,-190%)}}
+.eye{position:fixed;z-index:0}.topbar,main,.scanlines,.scroll-meter{position:relative;z-index:2}.topbar{position:fixed}.scanlines,.scroll-meter{position:fixed}.tracks-section{background:rgba(224,223,218,.76)}body.rage .tracks-section{background:rgba(9,9,9,.84)}
