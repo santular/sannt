@@ -238,6 +238,30 @@ addEventListener("pointermove", event => {
   document.documentElement.style.setProperty("--pointer-y", (event.clientY / innerHeight).toFixed(3));
 }, { passive: true });
 
+// The sculpture occasionally becomes aware, follows the visitor, then settles.
+const eye = document.querySelector(".eye");
+let eyeTimer;
+function scheduleEye() {
+  clearTimeout(eyeTimer);
+  eyeTimer = setTimeout(() => {
+    if (document.hidden || matchMedia("(prefers-reduced-motion: reduce)").matches) return scheduleEye();
+    const enraged = Math.random() < .28;
+    eye.classList.add("awake");
+    if (enraged) {
+      setTimeout(() => {
+        eye.classList.add("angry");
+        document.body.classList.add("rage");
+      }, 1800);
+    }
+    setTimeout(() => {
+      eye.classList.remove("awake", "angry");
+      document.body.classList.remove("rage");
+      scheduleEye();
+    }, enraged ? 7800 : 4700);
+  }, 6500 + Math.random() * 8500);
+}
+scheduleEye();
+
 if (manageMode) {
   document.body.classList.add("manage-mode");
   const panel = document.createElement("aside");
