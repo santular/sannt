@@ -15,6 +15,7 @@ footer{min-height:75vh;padding:15vh clamp(24px,5vw,80px) 5vh;display:flex;flex-d
 
 /* Kinetic hero sculpture — intentionally visible, still monochrome. */
 .hero::before{content:"";position:absolute;z-index:-1;width:clamp(260px,36vw,620px);aspect-ratio:1;border-radius:50%;right:11vw;top:18vh;background:radial-gradient(circle at 34% 28%,rgba(255,255,255,.98) 0 8%,rgba(255,255,255,.52) 20%,rgba(110,110,106,.2) 48%,rgba(255,255,255,.6) 68%,rgba(70,70,68,.16) 74%,rgba(255,255,255,.7) 100%);box-shadow:inset -35px -28px 70px rgba(40,40,38,.16),inset 28px 22px 60px rgba(255,255,255,.95),0 45px 80px rgba(35,35,33,.15);backdrop-filter:blur(8px);animation:orb-float 8s cubic-bezier(.45,0,.55,1) infinite alternate;transform:translate3d(calc((var(--pointer-x, .5) - .5)*32px),calc((var(--pointer-y, .5) - .5)*24px),0);will-change:transform}
+.hero{isolation:isolate}
 .hero::after{content:"";position:absolute;z-index:-1;width:clamp(44px,6vw,92px);aspect-ratio:1;border-radius:50%;right:8vw;top:27vh;background:#242422;box-shadow:0 15px 35px rgba(0,0,0,.22);animation:dot-orbit 7s cubic-bezier(.4,0,.2,1) infinite alternate;will-change:transform}
 .hero h1,.hero .hero-controls,.hero .stamp,.hero .scroll-copy{position:relative;z-index:1}
 @keyframes orb-float{0%{translate:0 -4%;scale:.94;rotate:-5deg}45%{translate:-8% 5%;scale:1.04;rotate:2deg}100%{translate:5% 11%;scale:.98;rotate:7deg}}
