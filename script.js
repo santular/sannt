@@ -82,7 +82,7 @@ beats.forEach((beat, index) => {
   } else {
     beat.playSrc = beat.src;
     download.href = beat.src;
-    download.download = "";
+    download.download = `${beat.title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "")}.mp3`;
   }
   list.append(row);
   rows.push(row);
