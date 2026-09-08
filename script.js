@@ -73,6 +73,7 @@ beats.forEach((beat, index) => {
   play.dataset.index = index;
   play.setAttribute("aria-label", `Play ${beat.title}`);
   const download = row.querySelector(".download");
+  row.querySelector(".rate").dataset.index = index;
   if (beat.placeholder) {
     const url = createDemoWav(beat.seed);
     demoUrls.push(url);
@@ -231,6 +232,40 @@ addEventListener("scroll", () => {
   if (!scrollFrame) scrollFrame = requestAnimationFrame(updateScrollScene);
 }, { passive: true });
 updateScrollScene();
+
+const ratingDialog = document.querySelector("#rating-dialog");
+const ratingTrack = document.querySelector("#rating-track");
+const ratingValue = document.querySelector("#rating-value");
+const ratingComment = document.querySelector("#rating-comment");
+let ratingIndex = -1;
+let selectedRating = 0;
+list.addEventListener("click", event => {
+  const rateButton = event.target.closest(".rate");
+  if (!rateButton) return;
+  ratingIndex = Number(rateButton.dataset.index);
+  selectedRating = 0;
+  ratingTrack.textContent = beats[ratingIndex].title.toLowerCase();
+  ratingValue.textContent = "0";
+  ratingComment.value = "";
+  ratingDialog.querySelectorAll(".stars button").forEach(button => button.classList.remove("active"));
+  ratingDialog.showModal();
+});
+ratingDialog.querySelector(".stars").addEventListener("click", event => {
+  const button = event.target.closest("[data-rating]");
+  if (!button) return;
+  selectedRating = Number(button.dataset.rating);
+  ratingValue.textContent = String(selectedRating);
+  ratingDialog.querySelectorAll(".stars button").forEach(item => {
+    const value = Number(item.dataset.rating);
+    item.classList.toggle("active", selectedRating === 0 ? value === 0 : value > 0 && value <= selectedRating);
+  });
+});
+ratingDialog.querySelector(".send-rating").addEventListener("click", () => {
+  if (ratingIndex < 0) return;
+  const subject = `Beat feedback: ${beats[ratingIndex].title} (${selectedRating}/5)`;
+  const body = `Beat: ${beats[ratingIndex].title}\nRating: ${selectedRating}/5\n\nComment:\n${ratingComment.value.trim() || "No comment"}`;
+  location.href = `mailto:dndarsey@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+});
 
 // Gentle pointer parallax gives the hero sculpture a tactile studio-object feel.
 addEventListener("pointermove", event => {
