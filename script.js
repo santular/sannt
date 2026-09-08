@@ -232,6 +232,12 @@ addEventListener("scroll", () => {
 }, { passive: true });
 updateScrollScene();
 
+// Gentle pointer parallax gives the hero sculpture a tactile studio-object feel.
+addEventListener("pointermove", event => {
+  document.documentElement.style.setProperty("--pointer-x", (event.clientX / innerWidth).toFixed(3));
+  document.documentElement.style.setProperty("--pointer-y", (event.clientY / innerHeight).toFixed(3));
+}, { passive: true });
+
 if (manageMode) {
   document.body.classList.add("manage-mode");
   const panel = document.createElement("aside");
