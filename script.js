@@ -31,6 +31,12 @@ let sourceNode;
 const manageMode = new URLSearchParams(location.search).get("manage") === "1";
 const localHidden = manageMode ? JSON.parse(localStorage.getItem("sannt-hidden") || "[]") : [];
 
+function analyticsEvent(action, beatTitle) {
+  if (!window.goatcounter?.count || location.protocol === "file:") return;
+  const slug = beatTitle.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+  window.goatcounter.count({ path: `${action}-${slug}`, title: `${action}: ${beatTitle}`, event: true });
+}
+
 function formatTime(seconds) {
   if (!Number.isFinite(seconds)) return "0:00";
   const mins = Math.floor(seconds / 60);
@@ -74,6 +80,7 @@ beats.forEach((beat, index) => {
   play.dataset.index = index;
   play.setAttribute("aria-label", `Play ${beat.title}`);
   const download = row.querySelector(".download");
+  download.dataset.index = index;
   row.querySelector(".rate").dataset.index = index;
   if (beat.placeholder) {
     const url = createDemoWav(beat.seed);
@@ -145,13 +152,18 @@ async function toggleTrack(index) {
   currentIndex = index;
   audio.src = beats[index].playSrc;
   audio.load();
-  try { await audio.play(); }
+  try {
+    await audio.play();
+    analyticsEvent("play", beats[index].title);
+  }
   catch { showStatus("Could not play this file. Check its path and format."); }
 }
 
 list.addEventListener("click", event => {
   const button = event.target.closest(".play-button");
   if (button) toggleTrack(Number(button.dataset.index));
+  const downloadLink = event.target.closest(".download");
+  if (downloadLink) analyticsEvent("download", beats[Number(downloadLink.dataset.index)].title);
 });
 
 list.addEventListener("input", event => {
@@ -264,6 +276,7 @@ list.addEventListener("click", event => {
   const rateButton = event.target.closest(".rate");
   if (!rateButton) return;
   ratingIndex = Number(rateButton.dataset.index);
+  analyticsEvent("rate-open", beats[ratingIndex].title);
   selectedRating = 0;
   ratingTrack.textContent = beats[ratingIndex].title.toLowerCase();
   ratingValue.textContent = "0";
@@ -283,6 +296,7 @@ ratingDialog.querySelector(".stars").addEventListener("click", event => {
 });
 ratingDialog.querySelector(".send-rating").addEventListener("click", () => {
   if (ratingIndex < 0) return;
+  analyticsEvent(`feedback-${selectedRating}-star`, beats[ratingIndex].title);
   const subject = `Beat feedback: ${beats[ratingIndex].title} (${selectedRating}/5)`;
   const body = `Beat: ${beats[ratingIndex].title}\nRating: ${selectedRating}/5\n\nComment:\n${ratingComment.value.trim() || "No comment"}`;
   location.href = `mailto:dndarsey@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
