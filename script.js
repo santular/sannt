@@ -108,10 +108,7 @@ const lastVisit = localStorage.getItem("sannt-last-visit");
 const newBeatNotice = document.querySelector("#new-beats");
 if (lastVisit) {
   const newCount = beats.filter(beat => !beat.hidden && new Date(beat.added).getTime() > Number(lastVisit)).length;
-  if (newCount > 0) {
-    newBeatNotice.textContent = `${newCount} new beat${newCount === 1 ? "" : "s"} posted since your last visit`;
-    newBeatNotice.hidden = false;
-  }
+  newBeatNotice.textContent = `${newCount} new beat${newCount === 1 ? "" : "s"} since your last visit`;
 }
 localStorage.setItem("sannt-last-visit", String(Date.now()));
 
