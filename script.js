@@ -13,6 +13,7 @@ const beats = [
   { title: "MOONLIT", detail: "145 BPM", src: "assets/audio/moonlit-145bpm.mp3", hidden: false },
   { title: "SLATE", detail: "140 BPM", src: "assets/audio/slate-140bpm.mp3", hidden: false },
   { title: "SUNRISE", detail: "140 BPM", src: "assets/audio/sunrise-140bpm.mp3", hidden: false },
+  { title: "SAVIOR", detail: "148 BPM", src: "assets/audio/savior-148bpm.mp3", hidden: false },
   { title: "ZEN", detail: "BPM —", src: "assets/audio/zen.mp3", hidden: false }
 ];
 
