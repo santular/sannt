@@ -1,20 +1,20 @@
 // EDIT THIS ARRAY to swap in Dallas's real beats.
 // Put MP3s in assets/audio/, then set src to that file and placeholder to false.
 const beats = [
-  { title: "223", detail: "140 BPM", src: "assets/audio/223-140bpm.mp3", hidden: false },
-  { title: "BEN", detail: "131 BPM", src: "assets/audio/ben-131bpm.mp3", hidden: false },
-  { title: "BLUE STRIP", detail: "145 BPM", src: "assets/audio/blue-strip-145bpm.mp3", hidden: false },
-  { title: "CANCER", detail: "134 BPM", src: "assets/audio/cancer-134bpm.mp3", hidden: false },
-  { title: "FIRST LAB", detail: "BPM —", src: "assets/audio/first-lab.mp3", hidden: false },
-  { title: "HEARTEATER", detail: "150 BPM", src: "assets/audio/hearteater-150bpm.mp3", hidden: false },
-  { title: "LIQUID", detail: "140 BPM", src: "assets/audio/liquid-140bpm.mp3", hidden: false },
-  { title: "LUCID", detail: "135 BPM", src: "assets/audio/lucid-135bpm.mp3", hidden: false },
-  { title: "MEMO", detail: "137 BPM", src: "assets/audio/memo-137bpm.mp3", hidden: false },
-  { title: "MOONLIT", detail: "145 BPM", src: "assets/audio/moonlit-145bpm.mp3", hidden: false },
-  { title: "SLATE", detail: "140 BPM", src: "assets/audio/slate-140bpm.mp3", hidden: false },
-  { title: "SUNRISE", detail: "140 BPM", src: "assets/audio/sunrise-140bpm.mp3", hidden: false },
-  { title: "SAVIOR", detail: "148 BPM", src: "assets/audio/savior-148bpm.mp3", hidden: false },
-  { title: "ZEN", detail: "BPM —", src: "assets/audio/zen.mp3", hidden: false }
+  { title: "223", detail: "140 BPM", bpm: 140, added: "2026-09-08", src: "assets/audio/223-140bpm.mp3", hidden: false },
+  { title: "BEN", detail: "131 BPM", bpm: 131, added: "2026-09-08", src: "assets/audio/ben-131bpm.mp3", hidden: false },
+  { title: "BLUE STRIP", detail: "145 BPM", bpm: 145, added: "2026-09-08", src: "assets/audio/blue-strip-145bpm.mp3", hidden: false },
+  { title: "CANCER", detail: "134 BPM", bpm: 134, added: "2026-09-08", src: "assets/audio/cancer-134bpm.mp3", hidden: false },
+  { title: "FIRST LAB", detail: "BPM —", bpm: 0, added: "2026-09-08", src: "assets/audio/first-lab.mp3", hidden: false },
+  { title: "HEARTEATER", detail: "150 BPM", bpm: 150, added: "2026-09-08", src: "assets/audio/hearteater-150bpm.mp3", hidden: false },
+  { title: "LIQUID", detail: "140 BPM", bpm: 140, added: "2026-09-08", src: "assets/audio/liquid-140bpm.mp3", hidden: false },
+  { title: "LUCID", detail: "135 BPM", bpm: 135, added: "2026-09-08", src: "assets/audio/lucid-135bpm.mp3", hidden: false },
+  { title: "MEMO", detail: "137 BPM", bpm: 137, added: "2026-09-08", src: "assets/audio/memo-137bpm.mp3", hidden: false },
+  { title: "MOONLIT", detail: "145 BPM", bpm: 145, added: "2026-09-08", src: "assets/audio/moonlit-145bpm.mp3", hidden: false },
+  { title: "SLATE", detail: "140 BPM", bpm: 140, added: "2026-09-08", src: "assets/audio/slate-140bpm.mp3", hidden: false },
+  { title: "SUNRISE", detail: "140 BPM", bpm: 140, added: "2026-09-08", src: "assets/audio/sunrise-140bpm.mp3", hidden: false },
+  { title: "SAVIOR", detail: "148 BPM", bpm: 148, added: "2026-09-09T16:44:00-04:00", src: "assets/audio/savior-148bpm.mp3", hidden: false },
+  { title: "ZEN", detail: "BPM —", bpm: 0, added: "2026-09-08", src: "assets/audio/zen.mp3", hidden: false }
 ];
 
 const audio = new Audio();
@@ -91,6 +91,29 @@ beats.forEach((beat, index) => {
 });
 
 document.querySelector("#track-count").textContent = `${String(rows.filter(row => !row.hidden).length).padStart(2, "0")} tracks`;
+
+const sortSelect = document.querySelector("#track-sort");
+function sortTracks(mode) {
+  const order = rows.map((row, index) => ({ row, index, beat: beats[index] }));
+  if (mode === "recent") order.sort((a, b) => b.beat.added.localeCompare(a.beat.added) || b.index - a.index);
+  if (mode === "bpm-high") order.sort((a, b) => b.beat.bpm - a.beat.bpm || a.index - b.index);
+  if (mode === "bpm-low") order.sort((a, b) => (a.beat.bpm || 999) - (b.beat.bpm || 999) || a.index - b.index);
+  if (mode === "original") order.sort((a, b) => a.index - b.index);
+  order.forEach(item => list.append(item.row));
+}
+sortSelect.addEventListener("change", () => sortTracks(sortSelect.value));
+sortTracks("recent");
+
+const lastVisit = localStorage.getItem("sannt-last-visit");
+const newBeatNotice = document.querySelector("#new-beats");
+if (lastVisit) {
+  const newCount = beats.filter(beat => !beat.hidden && new Date(beat.added).getTime() > Number(lastVisit)).length;
+  if (newCount > 0) {
+    newBeatNotice.textContent = `${newCount} new beat${newCount === 1 ? "" : "s"} posted since your last visit`;
+    newBeatNotice.hidden = false;
+  }
+}
+localStorage.setItem("sannt-last-visit", String(Date.now()));
 
 function setupAnalyser() {
   // Browsers frequently silence MediaElementSource audio on file:// pages.
