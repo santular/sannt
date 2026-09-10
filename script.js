@@ -1,20 +1,20 @@
 // EDIT THIS ARRAY to swap in Dallas's real beats.
 // Put MP3s in assets/audio/, then set src to that file and placeholder to false.
 const beats = [
-  { title: "223", detail: "140 BPM", bpm: 140, added: "2026-09-08", src: "assets/audio/223-140bpm.mp3", hidden: false },
-  { title: "BEN", detail: "131 BPM", bpm: 131, added: "2026-09-08", src: "assets/audio/ben-131bpm.mp3", hidden: false },
-  { title: "BLUE STRIP", detail: "145 BPM", bpm: 145, added: "2026-09-08", src: "assets/audio/blue-strip-145bpm.mp3", hidden: false },
-  { title: "CANCER", detail: "134 BPM", bpm: 134, added: "2026-09-08", src: "assets/audio/cancer-134bpm.mp3", hidden: false },
-  { title: "FIRST LAB", detail: "BPM —", bpm: 0, added: "2026-09-08", src: "assets/audio/first-lab.mp3", hidden: false },
-  { title: "HEARTEATER", detail: "150 BPM", bpm: 150, added: "2026-09-08", src: "assets/audio/hearteater-150bpm.mp3", hidden: false },
-  { title: "LIQUID", detail: "140 BPM", bpm: 140, added: "2026-09-08", src: "assets/audio/liquid-140bpm.mp3", hidden: false },
-  { title: "LUCID", detail: "135 BPM", bpm: 135, added: "2026-09-08", src: "assets/audio/lucid-135bpm.mp3", hidden: false },
-  { title: "MEMO", detail: "137 BPM", bpm: 137, added: "2026-09-08", src: "assets/audio/memo-137bpm.mp3", hidden: false },
-  { title: "MOONLIT", detail: "145 BPM", bpm: 145, added: "2026-09-08", src: "assets/audio/moonlit-145bpm.mp3", hidden: false },
-  { title: "SLATE", detail: "140 BPM", bpm: 140, added: "2026-09-08", src: "assets/audio/slate-140bpm.mp3", hidden: false },
-  { title: "SUNRISE", detail: "140 BPM", bpm: 140, added: "2026-09-08", src: "assets/audio/sunrise-140bpm.mp3", hidden: false },
-  { title: "SAVIOR", detail: "148 BPM", bpm: 148, added: "2026-09-09T16:44:00-04:00", src: "assets/audio/savior-148bpm.mp3", hidden: false },
-  { title: "ZEN", detail: "BPM —", bpm: 0, added: "2026-09-08", src: "assets/audio/zen.mp3", hidden: false }
+  { title: "223", detail: "140 BPM / D MINOR", bpm: 140, added: "2026-09-08", src: "assets/audio/223-140bpm.mp3", hidden: false },
+  { title: "BEN", detail: "131 BPM / C# MINOR", bpm: 131, added: "2026-09-08", src: "assets/audio/ben-131bpm.mp3", hidden: false },
+  { title: "BLUE STRIP", detail: "145 BPM / D MINOR", bpm: 145, added: "2026-09-08", src: "assets/audio/blue-strip-145bpm.mp3", hidden: false },
+  { title: "CANCER", detail: "134 BPM / C MAJOR", bpm: 134, added: "2026-09-08", src: "assets/audio/cancer-134bpm.mp3", hidden: false },
+  { title: "FIRST LAB", detail: "161 BPM / A MAJOR", bpm: 161, added: "2026-09-08", src: "assets/audio/first-lab.mp3", hidden: false },
+  { title: "HEARTEATER", detail: "150 BPM / C MINOR", bpm: 150, added: "2026-09-08", src: "assets/audio/hearteater-150bpm.mp3", hidden: false },
+  { title: "LIQUID", detail: "140 BPM / C MINOR", bpm: 140, added: "2026-09-08", src: "assets/audio/liquid-140bpm.mp3", hidden: false },
+  { title: "LUCID", detail: "135 BPM / A MAJOR", bpm: 135, added: "2026-09-08", src: "assets/audio/lucid-135bpm.mp3", hidden: false },
+  { title: "MEMO", detail: "137 BPM / A MAJOR", bpm: 137, added: "2026-09-08", src: "assets/audio/memo-137bpm.mp3", hidden: false },
+  { title: "MOONLIT", detail: "145 BPM / D# MINOR", bpm: 145, added: "2026-09-08", src: "assets/audio/moonlit-145bpm.mp3", hidden: false },
+  { title: "SLATE", detail: "140 BPM / C# MINOR", bpm: 140, added: "2026-09-08", src: "assets/audio/slate-140bpm.mp3", hidden: false },
+  { title: "SUNRISE", detail: "140 BPM / C# MINOR", bpm: 140, added: "2026-09-08", src: "assets/audio/sunrise-140bpm.mp3", hidden: false },
+  { title: "SAVIOR", detail: "148 BPM / C# MAJOR", bpm: 148, added: "2026-09-09T16:44:00-04:00", src: "assets/audio/savior-148bpm.mp3", hidden: false },
+  { title: "ZEN", detail: "144 BPM / C# MAJOR", bpm: 144, added: "2026-09-08", src: "assets/audio/zen.mp3", hidden: false }
 ];
 
 const audio = new Audio();
